@@ -45,7 +45,7 @@ gast==0.3.3
 gevent==21.8.0
 google-api-core==1.31.0
 google-api-python-client==2.14.0
-google-auth==1.18.0
+google-auth
 google-auth-httplib2==0.1.0
 google-auth-oauthlib==0.4.1
 google-pasta==0.2.0
