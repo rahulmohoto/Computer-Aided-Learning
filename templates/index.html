@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- vue3 from from https://unpkg.com/vue@next -->
+    <!-- <script src="templates/js/vue.global-3.0.11.js"></script> -->
+    <!-- https://stackoverflow.com/questions/30011170/flask-application-how-to-link-a-javascript-file-to-website -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.6.1/vue-resource.js"></script>
+    <script src="{{url_for('static', filename='vue.global-3.0.11.js')}}"></script>
+
+
+</head>
+
+<body>
+    <!-- https://v3.vuejs.org/guide/introduction.html#getting-started -->
+
+    <div id="app">
+        <canvas ref="canvas" width="400" height="400" style="position:absolute;top:10%;left:10%;border:2px solid;"
+            v-on:mousemove="findxy('move',$event)" v-on:mouseup="findxy('mouseup',$event)"
+            @click="startingCoordinate($event)" v-on:mouseout="findxy('out', $event)"></canvas>
+        <div style="position:absolute;top:20%;left:43%;">Eraser</div>
+        <!-- <div style="position:absolute;top:22%;left:45%;width:15px;height:15px;background:white;border:2px solid;"
+            id="white" @click="color(this)"></div> -->
+        <img id="canvasimg" style="position:absolute;top:10%;left:52%;" style="display:none;">
+        <input type="button" value="save" ref="btn" size="30" @click="save()"
+            style="position:absolute;top:55%;left:10%;">
+        <input type="button" value="clear" ref="clr" size="23" @click="erase()"
+            style="position:absolute;top:55%;left:15%;">
+
+        <!-- https://stackoverflow.com/questions/53953300/using-curly-brackets-for-a-value-in-vue-js-when-using-flask-as-well -->
+        Counter: {{ '{{counter}}' }}
+        <button @click="click">click</button>
+        <test_component></test_component>
+        <!-- <test_component2></test_component2> -->
+    </div>
+
+    <script>
+        const App = {
+            data() {
+                return {
+                    counter: 8,
+                    // isActive: true,
+                    // isClass2: false,
+                    canvas: "canvas",
+                    ctx: false,
+                    flag: false,
+                    prevX: 0,
+                    currX: 0,
+                    prevY: 0,
+                    currY: 0,
+                    dot_flag: false,
+                    clicked: false,
+
+                    x: "black",
+                    y: 2
+                }
+            },
+
+            methods: {
+                click() {
+                    this.counter++;
+                    console.log(this.counter);
+                },
+
+                findxy(res, e) {
+                    if (res == 'up' || res == "out" || !this.clicked) {
+                        this.flag = false;
+                    }
+                    if (res == 'move') {
+                        if (this.flag) {
+                            this.prevX = this.currX;
+                            this.prevY = this.currY;
+                            this.currX = e.clientX - this.canvas.offsetLeft;
+                            this.currY = e.clientY - this.canvas.offsetTop;
+                            this.draw();
+                        }
+                    }
+                },
+
+                draw() {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(this.prevX, this.prevY);
+                    this.ctx.lineTo(this.currX, this.currY);
+                    this.ctx.strokeStyle = "black";
+                    this.ctx.lineWidth = 2;
+                    this.ctx.stroke();
+                    this.ctx.closePath();
+                },
+
+                startingCoordinate(e) {
+                    // if(!clicked)
+                    this.clicked = !this.clicked;
+
+                    if (this.clicked) {
+                        this.prevX = this.currX;
+                        this.prevY = this.currY;
+                        this.currX = e.clientX - this.canvas.offsetLeft;
+                        this.currY = e.clientY - this.canvas.offsetTop;
+
+                        this.flag = true;
+                        this.dot_flag = true;
+                        if (this.dot_flag) {
+                            this.ctx.beginPath();
+                            this.ctx.fillStyle = "black";
+                            this.ctx.fillRect(this.currX, this.currY, 2, 2);
+                            this.ctx.closePath();
+                            this.dot_flag = false;
+                        }
+                    }
+                }
+            },
+
+            components: {
+                'test_component': { template: `<h1>Hello this is app</h1>` },
+                //     'test_component2': async (resolve, reject) =>
+                //         // const response = await fetch('/components/async-component.html');
+                //         // const text = await response.text();
+                //         // console.log(text);
+                //         // const parser = new DOMParser();
+                //         // const doc = parser.parseFromString(text, "text/html");
+                //         // console.log(doc);
+                //         // template: doc;
+                //         await fetch('/components/async-component.html', function (data, status, request) {
+                //             debugger;
+                //             var parser = new DOMParser();
+                //             var doc = parser.parseFromString(data, "text/html");
+                //             console.log(doc);
+                //             resolve({
+                //                 template: doc
+                //             });
+                //             reject({
+                //                 template: doc
+                //             })
+                //         })
+                //         // resolve({
+                //         //     template: doc
+                //         // });
+                //         // this.$http.get('components/async-component.html', function (data, status, request) {
+                //         //     var parser = new DOMParser();
+                //         //     var doc = parser.parseFromString(data, "text/html");
+                //         //     resolve({
+                //         //         template: doc
+                //         //     });
+                //         // });
+                // },
+
+            },
+
+            mounted() {
+                // canvas = document.getElementById('can');
+                this.canvas = this.$refs.canvas;
+                // console.log(canvas);
+                this.ctx = this.canvas.getContext("2d");
+                w = this.canvas.width;
+                h = this.canvas.height;
+
+                // this.initialize();
+            }
+        }
+
+        const app = Vue.createApp(App);
+        app.mount('#app')
+
+    </script>
+</body>
+
+</html>
