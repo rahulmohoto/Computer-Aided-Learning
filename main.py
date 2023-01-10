@@ -21,3 +21,6 @@ def routeIndex():
 @app.route('/components/<path:filename>')
 def download_file(filename):
     return send_from_directory("components", filename, as_attachment=True)
+
+if __name__ == "__main__":
+    app.run(debug=False,host='0.0.0.0')
