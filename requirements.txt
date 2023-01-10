@@ -145,7 +145,6 @@ python-dateutil==2.8.2
 python-json-logger==2.0.2
 python-utils==3.3.3
 pytz==2020.1
-pywin32
 PyWavelets==1.1.1
 PyYAML==5.3.1
 pyzmq==23.2.0
