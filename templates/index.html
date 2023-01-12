@@ -8,8 +8,6 @@
     <!-- https://stackoverflow.com/questions/30011170/flask-application-how-to-link-a-javascript-file-to-website -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.6.1/vue-resource.js"></script>
     <script src="{{url_for('static', filename='vue.global-3.0.11.js')}}"></script>
-
-
 </head>
 
 <body>
@@ -22,7 +20,7 @@
         <div style="position:absolute;top:20%;left:43%;">Eraser</div>
         <!-- <div style="position:absolute;top:22%;left:45%;width:15px;height:15px;background:white;border:2px solid;"
             id="white" @click="color(this)"></div> -->
-        <img id="canvasimg" style="position:absolute;top:10%;left:52%;" style="display:none;">
+        <img ref="canvasImg" style="position:absolute;top:10%;left:52%;" style="display:none;">
         <input type="button" value="save" ref="btn" size="30" @click="save()"
             style="position:absolute;top:55%;left:10%;">
         <input type="button" value="clear" ref="clr" size="23" @click="erase()"
