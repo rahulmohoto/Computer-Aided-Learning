@@ -8,31 +8,67 @@
     <!-- https://stackoverflow.com/questions/30011170/flask-application-how-to-link-a-javascript-file-to-website -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.6.1/vue-resource.js"></script>
     <script src="{{url_for('static', filename='vue.global-3.0.11.js')}}"></script>
+
+    <!-- Head of landing Page -->
+    <!-- Site made with Mobirise Website Builder v5.7.8, https://mobirise.com -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="generator" content="Mobirise v5.7.8, mobirise.com"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <!-- <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon"> -->
+    <!-- <meta name="description" content=""> -->
+
+
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap/css/bootstrap-grid.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap/css/bootstrap-reboot.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/dropdown/css/style.css')}}">
+    <!-- <link rel="stylesheet" href="assets/socicon/css/styles.css" href="{{url_for('static', filename='styles/dropdown/css/style.css')}}"> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/theme/css/style.css')}}">
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,700;1,400;1,700&display=swap&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,700;1,400;1,700&display=swap&display=swap">
+    </noscript>
+    <link rel="preload" as="style" href="{{url_for('static', filename='styles/mobirise/css/mbr-additional.css')}}">
+    <link rel="stylesheet" type="text/css"
+        href="{{url_for('static', filename='styles/mobirise/css/mbr-additional.css')}}">
+
 </head>
 
 <body>
     <!-- https://v3.vuejs.org/guide/introduction.html#getting-started -->
 
     <div id="app">
-        <canvas ref="canvas" width="400" height="400" style="position:absolute;top:10%;left:10%;border:2px solid;"
+        <!-- <canvas ref="canvas" width="400" height="400" style="position:absolute;top:10%;left:10%;border:2px solid;"
             v-on:mousemove="findxy('move',$event)" v-on:mouseup="findxy('mouseup',$event)"
             @click="startingCoordinate($event)" v-on:mouseout="findxy('out', $event)"></canvas>
-        <div style="position:absolute;top:20%;left:43%;">Eraser</div>
+        <div style="position:absolute;top:20%;left:43%;">Eraser</div> -->
         <!-- <div style="position:absolute;top:22%;left:45%;width:15px;height:15px;background:white;border:2px solid;"
             id="white" @click="color(this)"></div> -->
-        <img ref="canvasImg" style="position:absolute;top:10%;left:52%;" style="display:none;">
+        <!-- <img ref="canvasImg" style="position:absolute;top:10%;left:52%;" style="display:none;">
         <input type="button" value="save" ref="btn" size="30" @click="save()"
             style="position:absolute;top:55%;left:10%;">
         <input type="button" value="clear" ref="clr" size="23" @click="erase()"
-            style="position:absolute;top:55%;left:15%;">
+            style="position:absolute;top:55%;left:15%;"> -->
 
         <!-- https://stackoverflow.com/questions/53953300/using-curly-brackets-for-a-value-in-vue-js-when-using-flask-as-well -->
-        Counter: {{ '{{counter}}' }}
-        <button @click="click">click</button>
-        <test_component></test_component>
+        <!-- Counter: {{ '{{counter}}' }} -->
+        <!-- <button @click="click">click</button> -->
+        <!-- <test_component></test_component> -->
+        <landingpage></landingpage>
+        <!-- <hello_world></hello_world> -->
     </div>
 
     <script src="{{url_for('static', filename='app.js')}}"></script>
+    <script src="{{url_for('static', filename='landingPage.js')}}"></script>
+    <script src="{{url_for('static', filename='styles/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- <script src="assets/smoothscroll/smooth-scroll.js"></script> -->
+    <!-- <script src="assets/ytplayer/index.js"></script> -->
+    <script src="{{url_for('static', filename='styles/dropdown/js/navbar-dropdown.js')}}"></script>
+    <script src="{{url_for('static', filename='styles/theme/js/script.js')}}"></script>
     <script>
         app.mount('#app');
     </script>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.6.1/vue-resource.js"></script>
+    <script src="{{url_for('static', filename='vue.global-3.0.11.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+
+    <!-- Site made with Mobirise Website Builder v5.7.8, https://mobirise.com -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="Mobirise v5.7.8, mobirise.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
+    <meta name="description" content="">
+
+
+    <title>Home</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap/css/bootstrap-grid.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap/css/bootstrap-reboot.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/dropdown/css/style.css')}}">
+    <!-- <link rel="stylesheet" href="assets/socicon/css/styles.css" href="{{url_for('static', filename='styles/dropdown/css/style.css')}}"> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/theme/css/style.css')}}">
+    <!-- <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,700;1,400;1,700&display=swap&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'"> -->
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,700;1,400;1,700&display=swap&display=swap">
+    </noscript>
+    <link rel="preload" as="style" href="{{url_for('static', filename='styles/mobirise/css/mbr-additional.css')}}">
+    <link rel="stylesheet" type="text/css"
+        href="{{url_for('static', filename='styles/mobirise/css/mbr-additional.css')}}">
+</head>
+
+<body>
+    <section data-bs-version="5.1" class="menu menu1 cid-tsJfjXi3Q4" once="menu" id="menu1-0">
+        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg" ref="navbar" id="navbar">
+            <div class="container">
+                <div class="navbar-brand">
+                    <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-7">Computer Aided
+                            Learning</a></span>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse"
+                    data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                        <li class="nav-item"><a class="nav-link link text-black display-4"
+                                href="https://www.linkedin.com/in/rahul-mohoto-me/">
+                                About me</a></li>
+                        <li class="nav-item"><a class="nav-link link text-black display-4"
+                                href="https://www.hackster.io/rahulmohoto">
+                                Projects on Hackster</a></li>
+                        <li class="nav-item"><a class="nav-link link text-black display-4"
+                                href="https://mobiri.se">Contacts</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </section>
+
+    <section data-bs-version="5.1" class="header18 cid-tsJfrFk192" id="header18-1">
+        <div id="app" class="container" ref="canvasContainer">
+            <div class="row mt-3">
+                <div class="col-6 col-md-5">
+                    <div class="image-wrapper" style="height: 400px; width: 500px;">
+                        <img v-bind:src="'/static/images/' + currentShape + '_shape.jpg'" width="400" height="400">
+                        <p class="mbr-text mbr-fonts-style mt-2 align-center display-4">
+                            {{ '{{currentShape}}' }}</p>
+                        <button type="button" class="btn btn-secondary"
+                            style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
+                            @click="nextShape()">Next
+                            Shape</button>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="image-wrapper">
+                        <canvas ref="canvas" width="400" height="400" style="border:2px solid black;"
+                            v-on:mousemove="findxy('move',$event)" v-on:mouseup="findxy('mouseup',$event)"
+                            @click="startingCoordinate($event)" v-on:mouseout="findxy('out', $event)"></canvas>
+                    </div>
+                    <!-- <div>Eraser</div> -->
+                    <!-- <div style="position:absolute;top:22%;left:45%;width:15px;height:15px;background:white;border:2px solid;"
+    id="white" @click="color(this)"></div> -->
+                    <div>
+                        <img ref="canvasImg" :style="{'display': canvasImgStyle}">
+                        <button type="button" class="btn btn-primary" ref="btn" @click="Test()"
+                            style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Test</button>
+                        <button type="button" class="btn btn-primary" ref="btn" @click="erase()"
+                            style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Erase</button>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" style="display: flex; align-items: center; justify-content: center;">
+                    <div>
+                        <h1 class="mbr-section-title mbr-white"
+                            style="text-align: center; font-size: 2.5em; text-shadow: 1px 1px 2px pink;">
+                            Congratulations!!!
+                        </h1>
+                        <p class="mbr-text mbr-fonts-style mbr-white display-7">
+                            You have made correct statement.
+                        </p>
+                        <!-- <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>Congratulations!!</strong></h1> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section data-bs-version="5.1" class="header18 cid-tsJfrFk192 mbr-fullscreen" id="header18-2">
+        <div class="align-center container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10">
+                    <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1"><strong>Sorry We don't
+                            support Mobile version yet. Please browse with a bigger display device like TV/Laptop
+                            etc.</strong></h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="display-7"
+        style="padding: 0;align-items: center;justify-content: center;flex-wrap: wrap; align-content: center;display: flex;position: relative;height: 4rem;">
+        <a href="https://mobiri.se/2932002"
+            style="flex: 1 1;height: 4rem;position: absolute;width: 100%;z-index: 1;"><img alt="" style="height: 4rem;"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="></a>
+        <!-- <p style="margin: 0;text-align: center;" class="display-7">Made with &#8204;</p> -->
+        <a style="z-index:1" href="https://mobirise.com"> Copyright 2023 @ Rahul Mohoto</a>
+    </section>
+    <script src="{{url_for('static', filename='styles/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- <script src="assets/smoothscroll/smooth-scroll.js"></script> -->
+    <!-- <script src="assets/ytplayer/index.js"></script> -->
+    <script src="{{url_for('static', filename='styles/dropdown/js/navbar-dropdown.js')}}"></script>
+    <script src="{{url_for('static', filename='styles/theme/js/script.js')}}"></script>
+
+    <script src="{{url_for('static', filename='secondPage.js')}}"></script>
+    <script>
+        app.mount('#app');
+    </script>
+
+    <style>
+        .container-canvas {
+            margin-left: 50px;
+            padding: 0px;
+        }
+
+        /* .mbr-fullscreen {
+            padding-top: 0rem;
+            padding-bottom: 0rem;
+        } */
+
+        /* .header18 cid-tsJfrFk192 mbr-fullscreen {
+            height: 10vh;
+            overflow-y: hidden;
+        } */
+
+        /* .image-wrapper {
+            width: 400px;
+            height: 600px;
+        } */
+
+        @media screen and (min-width: 400px) {
+            #header18-1 {
+                padding-top: 30px;
+                height: 85vh;
+                overflow-y: hidden;
+            }
+
+            #header18-2 {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            #header18-1 {
+                display: none;
+            }
+
+        }
+    </style>
+</body>
+
+</html>
