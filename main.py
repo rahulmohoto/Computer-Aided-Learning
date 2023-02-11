@@ -32,13 +32,13 @@ def detect_shape(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     # setting threshold of gray image
-    _, threshold = cv2.threshold(gray, 250, 255, cv2.THRESH_BINARY)
+    _, threshold = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY)
 
     # using a findContours() function
     contours, _ = cv2.findContours(threshold, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     i = 0
-    print("contour length: ", len(contours))
+    # print("contour length: ", len(contours))
     # list for storing names of shapes
     for i in range(1,len(contours)):
         # here we are ignoring first counter because
@@ -50,7 +50,7 @@ def detect_shape(img):
 
         # cv2.approxPloyDP() function to approximate the shape
         approx = cv2.approxPolyDP(contour, 0.04 * cv2.arcLength(contour, True), True)
-        print(approx)
+        # print(approx)
 
         # using drawContours() function
         cv2.drawContours(img, [contour], 0, (0, 0, 255), 5)
@@ -65,24 +65,26 @@ def detect_shape(img):
         # putting shape name at center of each shape
         if len(approx) == 3:
             cv2.putText(img, 'Triangle', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 0), 2)
-            print("Triangle")
+            return "Triangle"
 
         elif len(approx) == 4:
             cv2.putText(img, 'Quadrilateral', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 0), 2)
-            print("Quadriteral")
+            return "Quadriteral"
 
         elif len(approx) == 5:
             cv2.putText(img, 'Pentagon', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 0), 2)
-            print("Pentagon")
+            return "Pentagon"
 
         elif len(approx) == 6:
             cv2.putText(img, 'Hexagon', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 0), 2)
-            print("Hexagon")
+            return "Hexagon"
 
         else:
             cv2.putText(img, 'circle', (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 0), 2)
-            print("circle")
-            
+            return "Circle"
+
+    return "null"
+
         # displaying the image after drawing contours
     #     cv2.imshow('shapes', img)
 
@@ -90,10 +92,10 @@ def detect_shape(img):
     #     cv2.destroyAllWindows()
 
     # displaying the image after drawing contours
-    cv2.imshow('shapes', img)
+    # cv2.imshow('shapes', img)
 
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
 @socketio.on('capture_canvas_event')
 def handle_capture_canvas_event(json, methods=['GET', 'POST']):
@@ -109,11 +111,12 @@ def handle_capture_canvas_event(json, methods=['GET', 'POST']):
     # image.show()
     open_cv_image = numpy.array(image) 
     open_cv_image = open_cv_image[:, :, ::-1].copy()
-    cv2.imshow('open cv image', open_cv_image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.imshow('open cv image', open_cv_image)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
-    detect_shape(img=open_cv_image)
+    shape = detect_shape(img=open_cv_image)
+    socketio.emit('message', {"shape":shape})
 
 
 @app.route("/")

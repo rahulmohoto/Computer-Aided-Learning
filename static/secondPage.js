@@ -22,13 +22,34 @@ const App = {
             navbar_container: null,
             section_container: null,
 
-            shapes: ['Triangle', 'Circle', 'Square'],
+            shapes: ['Triangle', 'Circle', 'Quadriteral', 'Pentagon', 'Hexagon'],
             currentShape: 'Triangle',
-            socket: null
+            socket: null,
+            detectedShape: null,
+            width: 0,
+            visible: "modal fade",
+            setZIndex: "z-index: -1050",
+            remainingSeconds: 5,
         }
     },
 
+    asyncComputed: {
+         
+    },
+
     computed: {
+        setWidth() {
+            debugger;
+            if (this.detectedShape == this.currentShape) {
+                console.log(this.width);
+                // await this.wait(5);
+                // debugger;
+                // this.nextShape();
+                return this.width = this.width + 20;
+            }
+            return this.width;
+        },
+
         getStyles() {
             var container = document.querySelector(".container"); // Will change this later.
             var container_style = getComputedStyle(container); // Will change this later.
@@ -45,9 +66,23 @@ const App = {
     },
 
     methods: {
-        click() {
-            this.counter++;
-            console.log(this.counter);
+        async wait() {
+            debugger;
+            return new Promise(resolve => {
+                var timeleft = 5;
+                var downloadTimer = setInterval(() => {
+                    if (timeleft <= 0) {
+                        clearInterval(downloadTimer);
+                        this.remainingSeconds = 5;
+                        this.nextShape();
+                        // return this.width = this.width + 20;
+                    } else {
+                        // console.log(this.remainingSeconds);
+                        this.remainingSeconds = 5 - timeleft // + " seconds remaining";
+                    }
+                    timeleft -= 1;
+                }, 1000);
+            });
         },
 
         findxy(res, e) {
@@ -109,55 +144,135 @@ const App = {
             }
         },
 
+        clear() {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.canvasImgStyle = "none";
+            this.detectedShape = null;
+        },
+
         erase() {
-            var m = confirm("Want to clear");
-            if (m) {
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                this.canvasImgStyle = "none";
-                // this.canvasImg.style.display = "none";
-                // document.getElementById("canvasimg").style.display = "none";
-            }
+            debugger;
+            // var m = confirm("Want to clear");
+            this.setZIndex = "z-index: 1050";
+            this.visible = "modal show";
+            // this.closeDialog(e);
+
+            // if (m) {
+            // this.clear();
+            // this.canvasImg.style.display = "none";
+            // document.getElementById("canvasimg").style.display = "none";
+            // }
         },
 
         nextShape() {
+            debugger;
             var currentShape = this.shapes.filter(n => n == this.currentShape);
             var currentIndex = this.shapes.findIndex(n => n == currentShape[0]);
             var nextIndex = (currentIndex + 1) >= this.shapes.length ? 0 : currentIndex + 1;
             this.currentShape = this.shapes[nextIndex];
             console.log(this.currentShape);
+
+            this.clear();
         },
 
-        Test() {
+        test() {
             debugger;
             // print()
             pictureURL = this.canvas.toDataURL();
-            this.socket.emit('capture_canvas_event' ,{
+            this.socket.emit('capture_canvas_event', {
                 message: 'Sending from client',
                 url: pictureURL
             })
+        },
+
+        closeDialog(e) {
+            debugger;
+            // console.log("Dialog Closed!!");
+            // this.visible = "modal fade";
+            // console.log(e.target.tagName);
+            if (e.target.innerText == "Erase") {
+                this.clear();
+                // this.canvasImg.style.display = "none";
+            }
+            this.setZIndex = "z-index: -1050";
+            this.visible = "modal fade";
         }
     },
 
     components: {
         'test_component': { template: `<h1>Hello this is app</h1>` },
+        // 'modalcomponent': {
+        //     template: `
+        // <!-- Modal -->
+        // <div :class="showModal" id="centerModal" ref="centerModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: block; padding-right: 17px; position: fixed; 
+        // top: 0; right: 0; bottom: 0; left: 0; height: 250px; overflow: hidden;" :style="zIndex">
+        // <div class="modal-dialog modal-dialog-centered" role="document">
+        //     <div class="modal-content">
+        //     <div class="modal-header">
+        //         <h5 class="modal-title">{{title}}</h5>
+        //         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        //         <span aria-hidden="true">&times;</span>
+        //         </button>
+        //     </div>
+        //     <div class="modal-body" style="font-family: Tahoma">
+        //         {{body}}
+        //     </div>
+        //     <div class="modal-footer" style="padding-bottom: 1.75rem">
+        //         <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="callBackClose($event)" style="font-family: Tahoma">Close</button>
+        //         <button type="button" class="btn btn-primary" @click="callBackErase($event)" style="font-family: Tahoma">Erase</button>
+        //     </div>
+        //     </div>
+        // </div>
+        // </div>
+        // `,
+        //     methods: {
+        //         callBackClose: function (e) {
+        //             debugger;
+        //             this.$emit('click', e);
+        //             // console.log(this.showModal);
+        //             // this.showModal = "modal fade";
+        //         },
+
+        //         callBackErase: function(e) {
+        //             debugger;
+        //             this.$emit('click', e);
+        //         }
+        //     },
+        //     props: {
+        //         showModal: String,
+        //         title: String,
+        //         body: String,
+        //         zIndex: String
+        //     }
+        // }
     },
 
     mounted() {
         this.canvas = this.$refs.canvas;
         this.ctx = this.canvas.getContext("2d");
         this.navbar_container = this.$refs.navbar;
+        console.log(this.navbar_container);
         // this.canvas_container = this.$refs.canvasContainer;
+
+        var container = this.$refs.refContainer;
+        console.log(container);
+
     },
 
     created() {
         el = this;
 
         this.socket = io.connect('http://' + "127.0.0.1" + ':' + location.port); // 127.0.0.1 is for local server
-        this.socket.on('connect',
-            function () {
-                console.log('initSocketIO');
-                // this.socket = socket;
-            });
+        this.socket.on('connect', () => {
+            console.log('initSocketIO');
+            // this.socket = socket;
+        });
+        this.socket.on('message', async (obj) => {
+            console.log('detected shape', obj.shape);
+            this.detectedShape = obj.shape;
+            if(this.currentShape == this.detectedShape)
+                await this.wait();
+        })
     }
 }
 

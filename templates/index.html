@@ -42,24 +42,7 @@
     <!-- https://v3.vuejs.org/guide/introduction.html#getting-started -->
 
     <div id="app">
-        <!-- <canvas ref="canvas" width="400" height="400" style="position:absolute;top:10%;left:10%;border:2px solid;"
-            v-on:mousemove="findxy('move',$event)" v-on:mouseup="findxy('mouseup',$event)"
-            @click="startingCoordinate($event)" v-on:mouseout="findxy('out', $event)"></canvas>
-        <div style="position:absolute;top:20%;left:43%;">Eraser</div> -->
-        <!-- <div style="position:absolute;top:22%;left:45%;width:15px;height:15px;background:white;border:2px solid;"
-            id="white" @click="color(this)"></div> -->
-        <!-- <img ref="canvasImg" style="position:absolute;top:10%;left:52%;" style="display:none;">
-        <input type="button" value="save" ref="btn" size="30" @click="save()"
-            style="position:absolute;top:55%;left:10%;">
-        <input type="button" value="clear" ref="clr" size="23" @click="erase()"
-            style="position:absolute;top:55%;left:15%;"> -->
-
-        <!-- https://stackoverflow.com/questions/53953300/using-curly-brackets-for-a-value-in-vue-js-when-using-flask-as-well -->
-        <!-- Counter: {{ '{{counter}}' }} -->
-        <!-- <button @click="click">click</button> -->
-        <!-- <test_component></test_component> -->
         <landingpage></landingpage>
-        <!-- <hello_world></hello_world> -->
     </div>
 
     <script src="{{url_for('static', filename='app.js')}}"></script>

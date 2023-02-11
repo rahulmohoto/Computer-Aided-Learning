@@ -26,13 +26,13 @@ app.component("landingpage", {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                             <li class="nav-item"><a class="nav-link link text-black display-4"
-                                    href="https://www.linkedin.com/in/rahul-mohoto-me/">
+                                    href="https://www.linkedin.com/in/rahul-mohoto-me/" target="_blank">
                                     About me</a></li>
                             <li class="nav-item"><a class="nav-link link text-black display-4"
-                                    href="https://www.hackster.io/rahulmohoto">
+                                    href="https://www.hackster.io/rahulmohoto" target="_blank">
                                     Projects on Hackster</a></li>
                             <li class="nav-item"><a class="nav-link link text-black display-4"
-                                    href="https://mobiri.se">Contacts</a>
+                                    href="https://mobiri.se" target="_blank">Contacts</a>
                             </li>
                         </ul>
                     </div>
@@ -66,11 +66,11 @@ app.component("landingpage", {
         </section>
         <section class="display-7"
             style="padding: 0;align-items: center;justify-content: center;flex-wrap: wrap; align-content: center;display: flex;position: relative;height: 4rem;">
-            <a href="https://mobiri.se/2932002"
+            <a href="https://www.youtube.com/@rahulmohoto9315/featured" target="_blank"
                 style="flex: 1 1;height: 4rem;position: absolute;width: 100%;z-index: 1;"><img alt="" style="height: 4rem;"
                     src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="></a>
             <!-- <p style="margin: 0;text-align: center;" class="display-7">Made with &#8204;</p> -->
-            <a style="z-index:1" href="https://mobirise.com"> Copyright 2023 @ Rahul Mohoto</a>
+            <a style="z-index:1" href="https://www.youtube.com/@rahulmohoto9315/featured" target="_blank"> Copyright 2023 &copy; Rahul Mohoto</a>
         </section>
     </div>
     </body>
