@@ -32,7 +32,7 @@ app.component("landingpage", {
                                     href="https://www.hackster.io/rahulmohoto" target="_blank">
                                     Projects on Hackster</a></li>
                             <li class="nav-item"><a class="nav-link link text-black display-4"
-                                    href="https://mobiri.se" target="_blank">Contacts</a>
+                                    href="mailto:rahulmohoto@gmail.com" target="_blank">Contact</a>
                             </li>
                         </ul>
                     </div>

@@ -6,16 +6,15 @@
     <script src="{{url_for('static', filename='vue.global-3.0.11.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
 
-    <!-- Site made with Mobirise Website Builder v5.7.8, https://mobirise.com -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="Mobirise v5.7.8, mobirise.com">
+    <meta name="generator" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
+    <!-- <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon"> -->
     <meta name="description" content="">
 
 
-    <title>Home</title>
+    <title>Page 2</title>
     <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap/css/bootstrap-grid.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='styles/bootstrap/css/bootstrap-reboot.min.css')}}">
@@ -58,7 +57,7 @@
                                 href="https://www.hackster.io/rahulmohoto" target="_blank">
                                 Projects on Hackster</a></li>
                         <li class="nav-item"><a class="nav-link link text-black display-4"
-                                href="https://mobiri.se" target="_blank">Contacts</a>
+                                href="mailto:rahulmohoto@gmail.com" target="_blank">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -69,7 +68,7 @@
     <section data-bs-version="5.1" class="header18 cid-tsJfrFk192" id="header18-1" ref="header18-1">
         <div id="app" class="container" ref="canvasContainer">
             <div class="row mt-3">
-                <div class="col-6 col-md-5">
+                <div class="col-6 col-md-5" :style="setOpacity">
                     <div class="image-wrapper" style="height: 400px; width: 500px;">
                         <img v-bind:src="'/static/images/' + currentShape + '_shape.jpg'" width="400" height="400">
                         <p class="mbr-text mbr-fonts-style mt-2 align-center display-4">
@@ -82,7 +81,7 @@
                             Shape</button>
                     </div>
                 </div>
-                <div class="col-6 col-md-4">
+                <div class="col-6 col-md-4" :style="setOpacity">
                     <div class="image-wrapper">
                         <canvas ref="canvas" width="400" height="400" style="border:2px solid black;"
                             v-on:mousemove="findxy('move',$event)" v-on:mouseup="findxy('mouseup',$event)"
@@ -100,7 +99,7 @@
                     </div>
                 </div>
                 <div class="col-6 col-md-3"
-                    style="display: flex; flex-direction: column; justify-content: space-evenly;">
+                    style="display: flex; flex-direction: column; justify-content: space-evenly;" :style="setOpacity">
                     <div v-if="detectedShape != null">
                         <div v-if="detectedShape == currentShape">
                             <h1 class="mbr-section-title mbr-white"
@@ -132,7 +131,7 @@
                     </div>
                 </div>
             </div>
-            <modalcomponent :class="visible" title="Confirmation" body="Do you want to erase?" @click="closeDialog" :style="setZIndex"></modalcomponent>
+            <modalcomponent :class="dialog.visible" :title="dialog.setTitle" :body="dialog.setBody" @click="closeDialog" :style="dialog.setZIndex" :hide="dialog.eraseHide"></modalcomponent>
         </div>
     </section>
 
