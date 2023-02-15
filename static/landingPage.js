@@ -48,9 +48,8 @@ app.component("landingpage", {
                                 Learning</strong></h1>
 
                         <p class="mbr-text mbr-fonts-style mbr-white display-7">
-                            Computer Aided Learning is a tool, which teaches you to draw the shapes without the help from
-                            your teacher. This web console supports any device. Only you have to attach your Psoc4100S
-                            Pioneer Kit to the device as a Mouse and start drawing the shapes.
+                            Computer Aided Learning is a tool, which teaches you to draw the shapes. This web console supports any smart display device of a better resolution, browser and internet connectivity. Only you have to attach your Psoc4 4100S
+                            Pioneer Kit to the device and start drawing the shapes.
                         </p>
 
                     </div>
@@ -78,7 +77,7 @@ app.component("landingpage", {
     `,
 })
 
-app.component("hello_world",{
+app.component("hello_world", {
     template: `
     <h1>Hello World</h1>
     `
