@@ -224,7 +224,7 @@ const App = {
         this.socket = io.connect('http://' + "127.0.0.1" + ':' + location.port); // 127.0.0.1 is for local server
         this.socket.on('connect', () => {
             console.log('initSocketIO');
-            this.showDialog(title = "Welcome!", body = "Here you will see the left shape. You have to draw the exact shape on the canvas. 5 shapes, 20 points each. Also you can see your progress.", hide = "display: none");
+            this.showDialog(title = "Welcome!", body = "Here, you will see a shape on the left. You have to draw the exact shape on the canvas of right. 5 shapes, 20 points each. Also, you can see your progress.", hide = "display: none");
         });
         this.socket.on('message', async (obj) => {
             console.log('detected shape', obj.shape);
