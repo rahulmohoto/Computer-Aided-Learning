@@ -2,9 +2,9 @@ app.component("modalcomponent", {
     template: `
         <!-- Modal -->
         <div :class="showModal" id="centerModal" ref="centerModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: block; padding-right: 17px; position: fixed; 
-        right: 0; bottom: 0; left: 0; overflow: hidden;" :style="zIndex">
+        right: 0; bottom: 0; left: 0; overflow: auto;" :style="zIndex">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content" style="height: 270px; box-shadow: 20px 20px 50px grey;">
+            <div class="modal-content" style="height: auto; display: block; overflow: auto; box-shadow: 20px 20px 50px grey;">
             <div class="modal-header">
                 <h5 class="modal-title">{{title}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -12,7 +12,8 @@ app.component("modalcomponent", {
                 </button>
             </div>
             <div class="modal-body" style="font-family: Tahoma">
-                {{body}}
+            <p v-html="body">
+            </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="callBackClose($event)" style="font-family: Tahoma">Close</button>

@@ -35,7 +35,8 @@ const App = {
                 visible: "modal fade",
                 setZIndex: "z-index: -1050",
                 eraseHide: "display: none"
-            }
+            },
+            isDisabled: false,
         }
     },
 
@@ -74,12 +75,14 @@ const App = {
         async wait() {
             debugger;
             return new Promise(resolve => {
+                this.isDisabled = true;
                 var timeleft = 5;
                 var downloadTimer = setInterval(() => {
                     if (timeleft <= 0) {
                         clearInterval(downloadTimer);
                         this.remainingSeconds = 5;
                         this.nextShape();
+                        this.isDisabled = false;
                         // return this.width = this.width + 20;
                     } else {
                         // console.log(this.remainingSeconds);
@@ -224,7 +227,7 @@ const App = {
         this.socket = io.connect('http://' + "127.0.0.1" + ':' + location.port); // 127.0.0.1 is for local server
         this.socket.on('connect', () => {
             console.log('initSocketIO');
-            this.showDialog(title = "Welcome!", body = "Here, you will see a shape on the left. You have to draw the exact shape on the canvas of right. 5 shapes, 20 points each. Also, you can see your progress.", hide = "display: none");
+            this.showDialog(title = "Welcome!", body = "Here, you will see a shape on the left. You have to draw the exact shape on the canvas of right. 5 shapes, 20 points each. Also, you can see your progress. <br /> Drawing instructions: <br /> 1. Single click on your left button of pioneer kit to activate pen tool, <br /> 2. Start drawing with the trackpad, <br /> 3. Again, single click on the left button to release pen tool.", hide = "display: none");
         });
         this.socket.on('message', async (obj) => {
             console.log('detected shape', obj.shape);

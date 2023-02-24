@@ -92,9 +92,9 @@
     id="white" @click="color(this)"></div> -->
                     <div>
                         <img ref="canvasImg" :style="{'display': canvasImgStyle}">
-                        <button type="button" class="btn btn-primary" ref="btn" @click="test()"
+                        <button type="button" class="btn btn-primary" ref="btn" @click="test()" :disabled="isDisabled"
                             style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Test</button>
-                        <button type="button" class="btn btn-primary" ref="btn" @click="erase()"
+                        <button type="button" class="btn btn-primary" ref="btn" @click="erase()" :disabled="isDisabled"
                             style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Erase</button>
                     </div>
                 </div>
@@ -173,6 +173,12 @@
             margin-left: 50px;
             padding: 0px;
         }
+
+        progress { height:5px; background: wheat; }
+        progress::-moz-progress-bar { background: orange; }
+        progress::-webkit-progress-bar {background: transparent;}
+        progress::-webkit-progress-value { background: orange; }
+        
 
         /* .mbr-fullscreen {
             padding-top: 0rem;
